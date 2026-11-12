@@ -1,0 +1,1090 @@
+:root {
+      --paper: #f8f1ed;
+      --ink: #080808;
+      --pink: #fac5d6;
+      --pink-light: #fbd5df;
+      --purple: #d8a7f1;
+      --purple-light: #e0baf5;
+      --line: 3px solid var(--ink);
+      --radius: 18px;
+      --gap: 10px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding: 16px 18px 24px;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "DM Sans", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .navbar {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      box-shadow: 5px 5px 0 var(--ink);
+      gap: 30px;
+      padding: 12px 28px;
+      border: var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.25);
+    }
+    .logo {
+      font-size: clamp(25px, 2.3vw, 36px);
+      font-weight: 900;
+      letter-spacing: -1.8px;
+      padding-right: 32px;
+      border-right: 2px solid var(--ink);
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2vw, 34px);
+      flex: 1;
+    }
+    .nav-links a {
+      padding: 11px 22px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background .2s, transform .2s;
+    }
+    .nav-links a:hover { background: var(--pink); transform: translateY(-2px); }
+    .nav-links .active { background: var(--pink); }
+    .sunburst { font-size: 39px; line-height: 1; }
+    .connect {
+      padding: 13px 26px;
+      color: white;
+      background: var(--ink);
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 17px;
+      white-space: nowrap;
+      transition: transform .2s;
+    }
+    .connect:hover { transform: translateY(-2px); }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-auto-rows: minmax(180px, auto);
+      gap: var(--gap);
+      margin-top: 11px;
+    }
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.18);
+      min-width: 0;
+    }
+    .hero {
+      grid-column: span 4;
+      min-height: 340px;
+      width: 100%;
+      padding: 24px 38px;
+      box-shadow: 5px 5px 0 var(--ink);
+      display: flex;
+      align-items: center;
+      background: linear-gradient(115deg, #f9ced9, #fbd9df);
+    }
+    .hero::after {
+      content: "✦";
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      font-size: 54px;
+    }
+    .hero-copy { position: relative; z-index: 1; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 0 0 8px;
+      font-size: 23px;
+      font-weight: 800;
+    }
+    .eyebrow::after {
+      content: "";
+      width: min(34vw, 330px);
+      height: 2px;
+      background: var(--ink);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(48px, 5.8vw, 88px);
+      line-height: .91;
+      letter-spacing: -5px;
+      font-weight: 900;
+    }
+    .tagline {
+      margin: 10px 0 24px;
+      font-family: "Space Mono", monospace;
+      font-size: clamp(13px, 1.35vw, 19px);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .outline-button {
+      display: inline-flex;
+      margin-left: 100px;
+      align-items: center;
+      gap: 13px;
+      padding: 10px 30px;
+      border: 2px solid var(--ink);
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: 800;
+      background: rgba(255,255,255,.18);
+      transition: background .2s;
+    }
+    .outline-button:hover { background: white; }
+   
+/* HERO SECTION */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+/* HERO DECORATIVE NUMBER */
+.hero-number {
+    position: absolute;
+
+    right: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: clamp(150px, 24%, 250px);
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-number img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* HERO TEXT */
+.hero-copy {
+    position: relative;
+    z-index: 2;
+}
+
+/* SMALLER SCREENS */
+
+    .profile-photo img {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 96%;
+      object-fit: contain;
+      object-position: center bottom;
+      z-index: 1;
+    }
+    .photo-placeholder {
+      width: 75%;
+      height: 78%;
+      display: grid;
+      place-items: center;
+      color: rgba(0,0,0,.7);
+      font-size: 18px;
+      font-weight: 800;
+      text-align: center;
+      border: 2px dashed rgba(0,0,0,.5);
+      border-radius: 48% 48% 0 0;
+      margin-bottom: 0;
+    }
+    .location-pill {
+      position: absolute;
+      z-index: 2;
+      right: 14px;
+      bottom: 70px;
+      padding: 10px 14px;
+      border-radius: 40px;
+      background: #fff8f4;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 2px 0 rgba(0,0,0,.12);
+    }
+    .location-pill::before { content: "●"; margin-right: 8px; }
+    .feature-card {
+      grid-column: span 2;
+      min-height: 184px;
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      padding: 20px 24px;
+      background: #fbf1ec;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 5px 5px 0 var(--ink); }
+    .feature-card.purple { background: linear-gradient(120deg, #d5a4ef, #e0b8f3); }
+    /* .number {
+      flex: 0 0 118px;
+      height: 94px;
+      padding-right: 14px;
+      border-right: 2px solid var(--ink);
+      display: flex;
+      align-items: center;
+    }
+    .number svg { width: 100%; height: 100%; overflow: visible; }
+    .number text {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 2.2;
+      font-family: "Space Mono", monospace;
+      font-size: 55px;
+      font-weight: 700;
+      paint-order: stroke;
+    } */
+    .feature-copy { position: relative; z-index: 1; max-width: 190px; }
+    .feature-copy h2 { margin: 0 0 4px; font-size: 23px; letter-spacing: -.7px; }
+    .feature-copy p { margin: 0; font-size: 15px; line-height: 1.45; }
+    .feature-icon {
+      position: absolute;
+      width: 112px;
+      height: 112px;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink);
+      z-index: 0;
+    }
+    
+    .feature-card .arrow {
+      position: absolute;
+      bottom: 11px;
+      left: 35px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      font-size: 23px;
+      line-height: 1;
+      background: rgba(255,255,255,.15);
+    }
+    .feature-card .arrow:hover { background: white; }
+    .bottom-motto {
+      grid-column: span 2;
+      min-height: 138px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      background: linear-gradient(120deg, #f9d0db, #fbebe7);
+      padding: 12px;
+    }
+    .globe { width: 48%; max-height: 110px; }
+    .motto-text {
+      border-left: 3px solid var(--ink);
+      padding-left: 24px;
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+    .exploring {
+      grid-column: span 2;
+      min-height: 138px;
+      padding: 20px 25px;
+      color: white;
+      background: #080808;
+    }
+    .exploring h2 {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 0 0 20px;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+    .exploring h2::after { content: ""; height: 2px; background: white; flex: 1; opacity: .8; }
+    .tags { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tags span {
+      border: 1.5px solid white;
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .available {
+      grid-column: span 2;
+      min-height: 138px;
+      padding: 24px 30px;
+      background: #fbf1ec;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .available h2 { margin: 0 0 10px; font-size: 17px; }
+    .available h2::before { content: ""; display: inline-block; width: 15px; height: 15px; margin-right: 14px; border-radius: 50%; background: #269b35; }
+    .available p { margin: 0; font-size: 16px; }
+    .available .round-arrow {
+      position: absolute;
+      right: 26px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 25px;
+    }
+    .checker {
+      grid-column: span 0.25;
+      min-height: 138px;
+      background:
+        conic-gradient(var(--ink) 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0)
+        0 0 / 38px 38px;
+    }
+
+
+/* =====================================
+   FEATURE ICON BUBBLES
+===================================== */
+
+.feature-card {
+    position: relative;
+}
+
+/* Bubble */
+.feature-dev {
+    position: absolute;
+
+    width: 116px;
+    height: 116px;
+
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    background: #f8bfd4;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Small decorative bubble tail */
+
+
+/* Actual SVG image */
+.feature-dev .feature-icon {
+    position: relative;
+
+    width: 76%;
+    height: 76%;
+
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+
+    transform: none;
+
+    display: block;
+    object-fit: contain;
+    object-position: center;
+
+    opacity: 1;
+    z-index: 1;
+}
+
+/* Purple card bubble */
+.feature-card.purple .feature-dev {
+    background: #e4c1f5;
+}
+
+/* Numbers and text stay above bubble */
+.feature-card ,
+.feature-card .feature-copy {
+    position: relative;
+    z-index: 2;
+}
+
+/* Arrow stays at bottom-left */
+.feature-card .arrow {
+    position: absolute;
+    z-index: 3;
+}
+.LinkedIn-icon{
+  width: 95px;
+  height: 55px;
+}
+.github-icon{
+  width: 60px;
+  height: 70px;
+}
+/* =====================================
+   ORGANIC FEATURE ICON BUBBLES
+===================================== */
+
+.feature-dev {
+    position: absolute;
+    width: 116px;
+    height: 116px;
+    display: flex;
+    flex-direction: column;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    display: grid;
+    place-items: center;
+
+    background: transparent;
+    border-radius: 50%;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Main organic bubble */
+.feature-dev::before {
+    content: "";
+    position: absolute;
+
+    width: 94px;
+    height: 94px;
+
+    border-radius: 48% 52% 58% 42% / 52% 43% 57% 48%;
+
+    background: #f8bfd4;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 0;
+}
+
+/* Smaller overlapping bubble */
+.feature-dev::after {
+    content: "";
+    position: absolute;
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: rgba(248, 191, 212, 0.65);
+
+    right: 4px;
+    bottom: 5px;
+
+    z-index: 0;
+}
+
+/* Icon perfectly centred */
+.feature-dev .feature-icon {
+    position: relative;
+
+    width: 76%;
+    height: 76%;
+
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+
+    transform: none;
+
+    object-fit: contain;
+    object-position: center;
+
+    display: block;
+    z-index: 2;
+}
+
+/* Purple cards */
+.feature-card.purple .feature-dev::before {
+    background: #e5c4f5;
+}
+
+.feature-card.purple .feature-dev::after {
+    background: rgba(194, 130, 226, 0.25);
+}
+
+/* =====================================
+   DIFFERENT BUBBLE SHAPES
+===================================== */
+
+/* Profile */
+.feature-card:nth-of-type(1) .feature-dev::before {
+    width: 100px;
+    height: 92px;
+    border-radius: 60% 40% 48% 52%;
+}
+
+/* Projection */
+.feature-card:nth-of-type(2) .feature-dev::before {
+    width: 88px;
+    height: 100px;
+    border-radius: 43% 57% 55% 45%;
+}
+
+/* Resume */
+.feature-card:nth-of-type(3) .feature-dev::before {
+    width: 102px;
+    height: 102px;
+    border-radius: 50% 50% 42% 58%;
+}
+
+/* Achievement */
+.feature-card:nth-of-type(4) .feature-dev::before {
+    width: 96px;
+    height: 96px;
+    border-radius: 42% 58% 60% 40%;
+}
+
+/* Certification */
+.feature-card:nth-of-type(5) .feature-dev::before {
+    width: 104px;
+    height: 88px;
+    border-radius: 55% 45% 42% 58%;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 760px) {
+    .feature-dev {
+        width: 76px;
+        height: 76px;
+        right: 8px;
+        top: auto;
+        bottom: 10px;
+        transform: none;
+    }
+
+    .feature-dev .feature-icon {
+        width: 76%;
+        height: 76%;
+    }
+
+    .feature-dev::before {
+        width: 68px;
+        height: 68px;
+    }
+
+    .feature-dev::after {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* =================================
+   HERO IMAGE POSITIONING
+================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Main decorative number */
+.hero-number {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-number img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Bottom-left checkerboard decoration */
+.hero-decoration {
+    position: absolute;
+
+    width: 95px !important;
+    height: 70px !important;
+
+    left: 0;
+    bottom: 0;
+
+    object-fit: contain;
+    object-position: left bottom;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Hero text stays above decorations */
+.hero-copy {
+    position: relative;
+    z-index: 2;
+}
+
+/* Smaller screens */
+@media (max-width: 760px) {
+
+    .hero-number {
+        width: 125px;
+        height: 125px;
+        right: 4%;
+        top: 50%;
+    }
+
+    .hero-decoration {
+        width: 65px !important;
+        height: 48px !important;
+    }
+}
+
+/* =====================================
+   DESKTOP BENTO GRID
+===================================== */
+
+@media (min-width: 1101px) {
+
+    .dashboard {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    /* Hero row */
+    .hero {
+        grid-column: span 8;
+    }
+
+    .profile-photo {
+        grid-column: span 4;
+    }
+
+    /* Feature cards: three per row */
+    .feature-card {
+        grid-column: span 4;
+    }
+
+    /* Final row: four separate cards */
+    .bottom-motto {
+        grid-column: span 3;
+    }
+
+    .exploring {
+        grid-column: span 5;
+    }
+
+    .available {
+        grid-column: span 3;
+    }
+
+    .checker {
+        grid-column: span 1;
+        min-width: 0;
+    }
+}
+
+/* =====================================
+   TABLET AND MOBILE GRID
+===================================== */
+
+@media (max-width: 1100px) {
+
+    .dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero,
+    .profile-photo {
+        grid-column: span 2;
+    }
+
+    .feature-card {
+        grid-column: span 1;
+    }
+
+    .bottom-motto,
+    .exploring,
+    .available {
+        grid-column: span 2;
+    }
+
+    .checker {
+        display: none;
+    }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    .feature-dev {
+        width: 76px;
+        height: 76px;
+
+        right: 8px;
+        top: auto;
+        bottom: 10px;
+        transform: none;
+    }
+
+    .feature-dev .feature-icon {
+        width: 76%;
+        height: 76%;
+    }
+}
+
+
+    @media (max-width: 1100px) {
+      body { padding: 12px; }
+      .navbar { gap: 15px; padding: 12px 18px; }
+      .nav-links { gap: 4px; }
+      .nav-links a { padding: 10px 13px; font-size: 15px; }
+      .connect { padding: 12px 17px; font-size: 14px; }
+      .hero { grid-column: span 4; }
+      .profile-photo { grid-column: span 2; }
+      .number { flex-basis: 88px; }
+      .feature-card { padding: 16px; gap: 12px; }
+      .feature-icon { width: 85px; height: 85px; opacity: .8; }
+      .feature-copy h2 { font-size: 20px; }
+      .feature-copy p { font-size: 13px; }
+    }
+    @media (max-width: 760px) {
+      body { padding: 10px; }
+      .navbar { flex-wrap: wrap; min-height: auto; }
+      .logo { border-right: 0; padding-right: 8px; }
+      .sunburst { margin-left: auto; }
+      .connect { font-size: 13px; }
+      .nav-links { order: 3; flex-basis: 100%; overflow-x: auto; padding-top: 6px; }
+      .nav-links a { font-size: 13px; }
+      .dashboard { grid-template-columns: repeat(2, minmax(0,1fr)); grid-auto-rows: auto; }
+      .hero { grid-column: span 2; min-height: 300px; padding: 24px; }
+      
+      h1 { font-size: clamp(45px, 10vw, 70px); letter-spacing: -3px; }
+      .tagline { white-space: normal; max-width: 75%; }
+      .eyebrow { font-size: 18px; }
+      .profile-photo { grid-column: span 2; min-height: 300px; }
+      .feature-card { grid-column: span 1; min-height: 180px; padding: 14px; gap: 9px; }
+      .number { flex-basis: 64px; height: 72px; padding-right: 8px; }
+      .number text { font-size: 58px; }
+      .feature-copy { padding-right: 0 !important; }
+      .feature-copy h2 { font-size: 17px; }
+      .feature-copy p { font-size: 12px; }
+      .feature-icon { width: 62px; height: 62px; right: 4px; top: auto; bottom: 6px; transform: none; opacity: .28; }
+      .feature-card .arrow { left: 14px; bottom: 10px; width: 29px; height: 29px; font-size: 20px; }
+      .bottom-motto, .exploring, .available { grid-column: span 2; min-height: 130px; }
+      .checker { display: none; }
+    }
+    @media (max-width: 760px) {
+    .hero-number {
+        width: clamp(100px, 27%, 160px);
+        right: 4%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+    @media (max-width: 390px) {
+      .feature-card { min-height: 165px; flex-wrap: wrap; align-content: center; }
+      .number { flex-basis: 58px; }
+      .feature-copy { max-width: calc(100% - 70px); }
+      .feature-copy p { font-size: 11px; }
+      .hero { min-height: 280px; }
+      .outline-button { font-size: 14px; padding: 9px 16px; }
+    }
+@media (max-width: 760px) {
+    .feature-dev {
+        width: 76px;
+        height: 76px;
+        right: 8px;
+        top: auto;
+        bottom: 10px;
+        transform: none;
+    }
+
+    .feature-dev .feature-icon {
+        width: 68%;
+        height: 68%;
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   CONTENT UPSCALE TO MATCH THE DESIGN MOCKUP PROPORTIONS
+   ========================================================================== */
+
+/* 1. Scale up the Card Numbers (01, 02, 03, etc.) */
+.feature-card .number text {
+  font-size: 78px !important;  /* Make the numbers noticeably thicker and taller */
+  stroke-width: 2.8px !important; /* Make the clean outline slightly bolder */
+}
+.number{
+    width: 200px;
+    height: 100px;
+    padding-right: 14px;
+    border-right: 2px solid black;
+}
+
+/* 2. Scale up the Main Card Headings */
+.feature-card .feature-copy h2 {
+  font-size: 31px !important;    /* Enlarged from 22px to fill horizontal room */
+  font-weight: 900 !important;   /* Extra thick font weight to match neo-brutalism look */
+  margin-bottom: 8px !important; /* Slightly more space before the paragraph text */
+}
+
+/* 3. Scale up the Paragraph Subtexts */
+.feature-card .feature-copy p {
+  font-size: 19px !important;    /* Enlarged from 13px/14px for high legibility */
+  line-height: 1.5 !important;   /* More breathing room between multiline wraps */
+  font-weight: 500 !important;   /* Makes text read slightly cleaner against backgrounds */
+}
+
+/* 4. Enlarge the clickable Circle Arrow Buttons at the bottom left */
+.feature-card .arrow {
+  width: 38px !important;        /* Scaled up from 29px/34px */
+  height: 38px !important;
+  font-size: 24px !important;    /* Makes the internal arrow symbol larger */
+  bottom: 16px !important;       /* Clean vertical padding positioning */
+  left: 28px !important;
+}
+/* ==========================================================================
+   ULTRA-SCALE ORGANIC LOOK & SUPER-SIZED ICONS
+   ========================================================================== */
+
+/* 5. Clear all background structures on the native container and upsize it */
+.feature-card .feature-dev {
+  position: absolute !important;
+  right: 24px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 150px !important;        /* Increased wrapper size to support huge layouts */
+  height: 150px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important; /* Strips any residual circular layers */
+  border-radius: 0 !important;
+  z-index: 1 !important;
+}
+
+/* 6. Enormous Hand-Drawn Blob background matching the massive icons */
+.feature-card .feature-dev::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 125px !important;       /* Scaled way up from 105px to create a massive splash */
+  height: 125px !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) rotate(-6deg) !important; /* Dead center alignment */
+  background: #f8bfd4 !important; /* Light pink bubble accent theme color */
+  border-radius: 48% 52% 58% 42% / 52% 43% 57% 48% !important; /* Organic morph */
+  z-index: -1 !important;
+}
+
+/* Extra organic bubble accent node detailing */
+.feature-card .feature-dev::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 38px !important;        /* Scaled up tail node accent */
+  height: 34px !important;
+  right: 2px !important;
+  bottom: 6px !important;
+  background: #f8bfd4 !important;
+  border-radius: 35% 65% 60% 40% !important;
+  transform: rotate(20deg) !important;
+  z-index: -2 !important;
+}
+
+/* Make sure purple bento grids receive their specific matching layouts */
+.feature-card.purple .feature-dev::before,
+.feature-card.purple .feature-dev::after {
+  background: #e5c4f5 !important; /* Custom light purple accent color */
+}
+
+/* 7. Super-Sized Graphic Icons */
+.feature-card .feature-icon {
+  position: relative !important;
+  display: block !important;
+  width: 195px !important;        /* Drastically boosted from 76px to look massive and prominent */
+  height: 110px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 2 !important;
+}
+
+/* 8. Extra text safety padding to accommodate the massive new graphics zone */
+.feature-card .feature-copy {
+  max-width: 100% !important;
+  padding-right: 165px !important; /* Pushes text further left so it never overlaps the big icons */
+  box-sizing: border-box !important;
+}
+
+/* Smooth fluid fallback for responsive viewports */
+@media (max-width: 1100px) {
+  .feature-card .feature-copy { padding-right: 125px !important; }
+  .feature-card .feature-dev { width: 110px !important; height: 110px !important; right: 12px !important; }
+  .feature-card .feature-dev::before { width: 95px !important; height: 95px !important; }
+  .feature-card .feature-icon { width: 70px !important; height: 70px !important; }
+}
+
+@media (max-width: 760px) {
+  .feature-card .feature-copy { padding-right: 90px !important; }
+  .feature-card .feature-dev { width: 85px !important; height: 85px !important; right: 8px !important; }
+  .feature-card .feature-dev::before { width: 72px !important; height: 72px !important; }
+  .feature-card .feature-dev::after { width: 22px !important; height: 20px !important; right: 2px !important; bottom: 2px !important; }
+  .feature-card .feature-icon { width: 52px !important; height: 52px !important; }
+}
+
+/* FIX: Keep GitHub and LinkedIn links clickable above the decorative bubble */
+#social .feature-dev {
+    pointer-events: auto !important;
+    z-index: 20 !important;
+}
+
+#social .feature-dev a {
+    position: relative !important;
+    z-index: 21 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+#social .feature-dev a img {
+    pointer-events: none;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE LAYOUT
+   Desktop styles above remain unchanged.
+========================================= */
+@media (max-width: 760px) {
+  html, body { width: 100%; overflow-x: hidden; }
+  body { padding: 10px 12px 22px; }
+  .navbar {
+    min-height: 0; flex-wrap: wrap; gap: 10px;
+    padding: 12px 14px; box-shadow: 4px 4px 0 var(--ink);
+  }
+  .logo {
+    font-size: 27px; padding: 0; border: 0; margin-right: auto;
+  }
+  .sunburst { font-size: 27px; margin: 0; }
+  .connect { padding: 10px 13px; font-size: 12px; }
+  .nav-links {
+    order: 4; flex: 0 0 100%; width: 100%;
+    display: flex; gap: 5px; overflow-x: auto;
+    padding: 8px 0 2px; scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { flex: 0 0 auto; font-size: 13px; padding: 8px 12px; }
+  .dashboard {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto; gap: 12px; margin-top: 12px;
+  }
+  .dashboard > * { grid-column: 1 / -1 !important; min-width: 0; }
+  .hero {
+    min-height: 300px; padding: 25px 20px;
+    box-shadow: 4px 4px 0 var(--ink); align-items: flex-start;
+  }
+  .hero::after { right: 10px; top: 5px; font-size: 36px; }
+  .eyebrow { font-size: 16px; gap: 10px; }
+  .eyebrow::after { width: 75px; }
+  h1 { font-size: clamp(43px, 13vw, 66px); letter-spacing: -3px; line-height: .95; }
+  .tagline {
+    white-space: normal; max-width: 75%; font-size: 11px;
+    line-height: 1.6; margin: 12px 0 20px;
+  }
+  .outline-button { margin-left: 0; padding: 9px 15px; font-size: 13px; }
+  .hero-number { width: 34%; right: 2%; top: 57%; }
+  .hero-decoration { width: 110px; max-width: 35%; }
+  .profile-photo { min-height: 300px; }
+  .profile-photo img { height: 96%; }
+  .location-pill { right: 10px; bottom: 14px; font-size: 11px; padding: 8px 10px; }
+  .feature-card {
+    min-height: 155px; padding: 18px 15px;
+    gap: 8px; box-shadow: none;
+  }
+  .feature-card .number {
+    width: 65px; height: 65px; flex: 0 0 65px;
+    padding-right: 7px; border-right: 1.5px solid var(--ink);
+  }
+  .feature-copy {
+    max-width: none !important; width: calc(100% - 105px);
+    padding-right: 0 !important; z-index: 3;
+  }
+  .feature-card .feature-copy h2 { font-size: 20px !important; margin-bottom: 5px !important; }
+  .feature-card .feature-copy p { font-size: 13px !important; line-height: 1.4 !important; }
+  .feature-card .feature-dev {
+    width: 78px !important; height: 78px !important;
+    right: 8px !important; top: auto !important; bottom: 8px;
+    transform: none !important;
+  }
+  .feature-card .feature-dev::before { width: 68px !important; height: 68px !important; }
+  .feature-card .feature-dev::after { width: 20px !important; height: 18px !important; }
+  .feature-card .feature-icon { width: 55px !important; height: 55px !important; }
+  .feature-card .arrow { left: 14px !important; bottom: 10px !important; width: 29px !important; height: 29px !important; font-size: 19px !important; }
+  .feature-card .github-icon { width: 42px; height: 48px; }
+  .feature-card .LinkedIn-icon { width: 58px; height: 38px; }
+  .bottom-motto { min-height: 125px; padding: 12px; justify-content: space-around; }
+  .globe { width: 42%; max-height: 95px; }
+  .motto-text { font-size: 19px; padding-left: 15px; }
+  .exploring { min-height: 0; padding: 18px 15px; }
+  .exploring h2 { font-size: 14px; gap: 9px; white-space: normal; margin-bottom: 14px; }
+  .tags { gap: 7px; }
+  .tags span { font-size: 12px; padding: 6px 10px; }
+  .available { min-height: 120px; padding: 18px 60px 18px 16px; }
+  .available h2 { font-size: 15px; }
+  .available p { font-size: 13px; }
+  .available .round-arrow { right: 13px; width: 38px; height: 38px; }
+  .checker { display: none; }
+}
+@media (max-width: 380px) {
+  body { padding: 8px; }
+  .navbar { padding: 10px; }
+  .connect { font-size: 11px; padding: 9px 10px; }
+  .feature-card { min-height: 145px; padding: 14px 10px; }
+  .feature-card .feature-copy h2 { font-size: 18px !important; }
+  .feature-card .feature-copy p { font-size: 12px !important; }
+  .hero { min-height: 280px; padding: 22px 15px; }
+  .hero-number { width: 31%; }
+}
+
+/* Keep social links clickable above all mobile decorative layers. */
+#social .feature-dev { pointer-events: auto !important; z-index: 30 !important; }
+#social .feature-dev a { position: relative !important; z-index: 31 !important; display: inline-flex !important; align-items: center; justify-content: center; pointer-events: auto !important; cursor: pointer; }
+#social .feature-dev a img { pointer-events: none; }
+
+
+/* HERO FULL WIDTH — profile photo card is currently removed from the HTML */
+@media (min-width: 1101px) {
+  .dashboard > .hero {
+    grid-column: 1 / -1 !important;
+    width: 100%;
+  }
+}

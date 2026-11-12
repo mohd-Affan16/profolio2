@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affan - Certificates</title>
+
+    <style>
+        :root {
+            --paper: #f8f1ed;
+            --ink: #080808;
+            --pink: #fac5d6;
+            --pink-light: #fbd5df;
+            --purple: #d8a7f1;
+            --purple-light: #e0baf5;
+            --line: 3px solid var(--ink);
+            --radius: 18px;
+            --gap: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "DM Sans", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            padding: 16px 18px 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        /* Navigation: reused from projection.html */
+        .navbar {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 10px 10px 0 var(--ink);
+            padding: 12px 28px;
+            border: var(--line);
+            border-radius: var(--radius);
+            background: rgba(255,255,255,.25);
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: clamp(25px, 2.3vw, 36px);
+            font-weight: 900;
+            letter-spacing: -1.8px;
+            padding-right: 32px;
+            border-right: 2px solid var(--ink);
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 34px);
+            flex: 1;
+        }
+
+        .nav-links a {
+            padding: 11px 22px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: background .2s, transform .2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links a:hover {
+            background: var(--pink);
+            transform: translateY(-2px);
+        }
+
+        .nav-links .active {
+            background: var(--pink);
+        }
+
+        .sunburst {
+            font-size: 39px;
+            line-height: 1;
+        }
+
+        .connect {
+            padding: 13px 26px;
+            color: white;
+            background: var(--ink);
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 17px;
+            white-space: nowrap;
+            transition: transform .2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .connect:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero-banner {
+            width: 100%;
+            min-height: 260px;
+            background: linear-gradient(115deg, #f9ced9, #fbd9df);
+            border: var(--line);
+            border-radius: var(--radius);
+            padding: 38px 42px;
+            display: flex;
+            box-shadow: 10px 10px 0 var(--ink);
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sub-title {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            font-size: clamp(48px, 5.8vw, 88px);
+            font-weight: 900;
+            line-height: .91;
+            letter-spacing: -3px;
+            margin: 15px 0;
+        }
+
+        .tagline {
+            font-family: "Space Mono", monospace;
+            font-size: clamp(13px, 1.35vw, 19px);
+            font-weight: 700;
+        }
+
+        /* Empty image slots: add your own images later */
+        .hero-image-slot {
+            width: 330px;
+            height: 180px;
+            flex: 0 0 330px;
+            
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image-slot img,
+        .decoration-slot img,
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Small image slots for the decorative graphics from the reference */
+        /* .decoration-slot {
+            width: 64px;
+            height: 64px;
+            flex: 0 0 64px;
+            
+           
+            overflow: hidden;
+        } */
+
+        /* .hero-decoration {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            width: 58px;
+            height: 48px;
+        } */
+
+        /* Certificate grid */
+        .certificates-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-auto-rows: 390px;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .certificate-card {
+            width: 100%;
+            height: 390px;
+            min-width: 0;
+            border: var(--line);
+            border-radius: var(--radius);
+            padding: 16px 50px 16px 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            background: rgba(255,255,255,.18);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        /* Same hover behavior as .project-card in projection.html */
+        .certificate-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0 var(--ink);
+        }
+
+        .certificate-heading {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 7px 12px;
+            border: 2px solid var(--ink);
+            border-radius: 14px;
+            background: rgba(255,255,255,.48);
+        }
+
+        .certificate-number {
+            font-size: 17px;
+            font-weight: 900;
+            flex: 0 0 auto;
+        }
+
+        .certificate-name {
+            font-size: clamp(15px, 1.25vw, 19px);
+            font-weight: 900;
+            line-height: 1.15;
+            border-left: 2px solid black;
+            padding-left: 5px;
+            overflow-wrap: anywhere;
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 174px;
+            flex: 0 0 174px;
+            background: #fff;
+            border: 2px solid var(--ink);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-description {
+            font-size: 20px;
+            line-height: 1.35;
+            font-weight: 600;
+            min-height: 42px;
+            overflow: hidden;
+        }
+
+        .certificate-bottom {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            border-top: 1.5px solid var(--ink);
+            padding-top: 9px;
+            min-height: 36px;
+        }
+
+        .certificate-date {
+            font-size: 15px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .certificate-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .certificate-links a {
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 900;
+            text-decoration: none;
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .certificate-links a:hover {
+            opacity: .6;
+        }
+
+        .side-decoration {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 52px;
+        }
+
+        /* Optional closing message block */
+        .closing-note {
+            margin-top: 22px;
+            margin-left: auto;
+            width: min(230px, 100%);
+            min-height: 110px;
+            border: var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--pink), var(--purple-light));
+            box-shadow: 5px 5px 0 var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px;
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.15;
+        }
+         .hero-decoration {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+           
+            height: 50px;
+        }
+        @media (max-width: 1100px) {
+            .certificates-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-auto-rows: 390px;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+                min-height: auto;
+            }
+
+            .logo {
+                border-right: 0;
+                padding-right: 8px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 12px;
+            }
+
+            .navbar {
+                gap: 14px;
+                padding: 14px;
+                margin-bottom: 25px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .sunburst {
+                margin-left: auto;
+                font-size: 30px;
+            }
+
+            .connect {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .hero-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 18px;
+                gap: 22px;
+            }
+
+            .hero-image-slot {
+                width: 100%;
+                max-width: 330px;
+                flex-basis: 160px;
+                height: 160px;
+            }
+
+            .hero-decoration {
+                display: none;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 390px;
+                gap: 18px;
+            }
+
+            .certificate-card {
+                height: 390px;
+            }
+
+            .closing-note {
+                margin-left: 0;
+            }
+        }
+    
+/* Mobile layout overrides */
+@media (max-width: 700px) {
+  html, body { width: 100%; overflow-x: hidden; }
+  body { padding: 10px 12px 22px; }
+  .container { width: 100%; max-width: 100%; }
+  .navbar {
+    min-height: 0; flex-wrap: wrap; gap: 10px;
+    padding: 12px 14px; margin-bottom: 24px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .logo { font-size: 27px; border: 0; padding: 0; margin-right: auto; }
+  .sunburst { font-size: 27px; margin-left: 0; }
+  .connect { padding: 10px 13px; font-size: 12px; }
+  .nav-links {
+    order: 4; flex: 0 0 100%; width: 100%;
+    display: flex; flex-wrap: nowrap; gap: 5px;
+    overflow-x: auto; padding: 8px 0 2px; scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { flex: 0 0 auto; font-size: 13px; padding: 8px 11px; }
+  .hero-banner {
+    min-height: 0; padding: 28px 18px 24px;
+    flex-direction: column; text-align: center;
+    gap: 18px; margin-bottom: 26px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .hero-content { width: 100%; }
+  .sub-title { font-size: 14px; }
+  .main-title { font-size: clamp(36px, 10vw, 54px); letter-spacing: -2px; line-height: .98; margin: 12px 0; overflow-wrap: anywhere; }
+  .tagline { font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+  .hero-image-slot, .hero-manual-image-slot {
+    width: 100%; max-width: 250px; height: 135px;
+    flex: 0 0 135px; margin: 0 auto;
+  }
+  .hero-decoration { display: none; }
+  .certificates-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: 16px; }
+  .certificate-card {
+    height: auto; min-height: 0; padding: 14px;
+    gap: 11px; border-radius: 16px;
+  }
+  .certificate-heading { min-height: 42px; padding: 7px 9px; gap: 8px; }
+  .certificate-number { font-size: 14px; }
+  .certificate-name { font-size: 15px; line-height: 1.25; }
+  .certificate-image { height: auto; min-height: 150px; max-height: 220px; flex: 0 0 auto; }
+  .certificate-image img { width: 100%; height: 100%; max-height: 220px; object-fit: contain; }
+  .certificate-description { font-size: 14px; line-height: 1.45; min-height: 0; overflow: visible; }
+  .certificate-bottom { flex-wrap: wrap; align-items: center; gap: 9px; padding-top: 9px; }
+  .certificate-date { font-size: 12px; white-space: normal; }
+  .certificate-links { gap: 10px; }
+  .certificate-links a { font-size: 12px; }
+  .side-decoration { display: none; }
+  .closing-note { width: 100%; max-width: 190px; min-height: 90px; margin: 20px 0 0 auto; font-size: 20px; }
+}
+@media (max-width: 380px) {
+  body { padding: 8px; }
+  .navbar { padding: 10px; }
+  .connect { font-size: 11px; padding: 9px 10px; }
+  .hero-banner { padding: 24px 13px; }
+  .certificate-card { padding: 11px; }
+  .certificate-name { font-size: 14px; }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="navbar">
+            <div class="logo">AFFAN.</div>
+
+            <nav class="nav-links">
+                <a href="/index.mobile.html">Home</a>
+                <a href="/pages/profile.html">About</a>
+                <a href="/pages/projection.mobile.html">Projects</a>
+                <!-- <a href="achievements.html">Achievements</a> -->
+                <a href="/pages/certificates.mobile.html" class="active">Certificates</a>
+                
+            </nav>
+
+            <span class="sunburst">✳</span>
+            <button class="connect" onclick="window.location.href='contact.html'">Let's Connect →</button>
+            
+        </header>
+
+        <main>
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <span class="sub-title">MY CREDENTIALS</span>
+                    <h1 class="main-title">CERTIFICATES.</h1>
+                    <p class="tagline">A collection of milestones, skills and things I've learned.</p>
+                </div>
+
+                <!-- Add your hero certificate illustration inside this empty slot -->
+                <div id="hero-image-slot"></div>
+                        <img class="hero-image-slot" src="/images/hero-certificate.svg">
+                <!-- Add your own decorative image here if you want to use the checker graphic -->
+                <div >
+                    <img class="hero-decoration" src="/images/hero-decoration.svg" aria-hidden="true">
+                </div>
+            </section>
+
+            <section class="certificates-grid" id="certificates-container"></section>
+
+            <div class="closing-note">
+                LEARN.<br>BUILD.<br>GROW.
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Same four-color palette and repeating order as projection.html. id title description date imagesrc githuburl linkedinurl certificateurl
+        // 5th card = 1st color, 6th card = 2nd color, and so on.
+        const colorPalette = ["#fac5d6", "#d8a7f1", "#ebd2ea", "#fcf1e8"];
+
+        // Add certificate details here. Keep imageSrc empty until you add your image.
+        const certificatesData = [
+            {
+                id: "01",
+                title:"Full Stack Web Development",
+                description: "Completed Full Stack Web Development course by GeeksforGeeks.",
+                date: "Dec 2025",
+                imageSrc: "../images/GFG_fullstack.jpeg",
+                githubUrl: "",
+                linkedinUrl: "",
+                certificateUrl: "../images/GFG_fullstack.jpeg"
+            },
+            {
+                id: "02",
+                title: "Build with AI Agent Builder Camp",
+                description: "Participated in AI Agent Builder Camp by GeeksforGeeks x Google.",
+                date: "May 2026",
+                imageSrc: "../images/GFGxGoogle.jpeg",
+                githubUrl: "",
+                linkedinUrl: "",
+                certificateUrl: "../images/GFGxGoogle.jpeg"
+            },
+            {
+               id: "03",
+                title: "IoT Application Design Workshop",
+                description: "Completed hands-on IoT Application Design workshop by Embed Club.",
+                date: "May 2026",
+                imageSrc: "../images/IOT.jpeg",
+                githubUrl: "",
+                linkedinUrl: "",
+                certificateUrl: "../images/IOT.jpeg"
+            },
+            {
+               id: "04",
+                title: "Code It. Secure It. Workshop",
+                description: "Participated in 2-day Web Development & Cybersecurity workshop.",
+                date: "Sep 2026",
+                imageSrc: "../images/Codeit,Secureit.jpeg",
+                githubUrl: "",
+                linkedinUrl: "",
+                certificateUrl: "../images/Codeit,Secureit.jpeg"
+            }
+        ];
+
+        function createLink(url, label) {
+            if (!url) return "";
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+        }
+
+        function renderCertificates() {
+            const container = document.getElementById("certificates-container");
+            container.innerHTML = "";
+
+            certificatesData.forEach((certificate, index) => {
+                const assignedBgColor = colorPalette[index % colorPalette.length];
+
+                const imageElement = certificate.imageSrc
+                    ? `<img src="${certificate.imageSrc}" alt="${certificate.title} certificate">`
+                    : "";
+
+                const linksHtml = [
+                    createLink(certificate.githubUrl, "GitHub"),
+                    createLink(certificate.linkedinUrl, "LinkedIn"),
+                    createLink(certificate.certificateUrl, "View")
+                ].filter(Boolean).join("");
+
+                const card = document.createElement("article");
+                card.className = "certificate-card";
+                card.style.backgroundColor = assignedBgColor;
+
+                card.innerHTML = `
+                    <div class="certificate-heading">
+                        <span class="certificate-number">${certificate.id}</span>
+                        <h2 class="certificate-name">${certificate.title}</h2>
+                    </div>
+
+                    <div class="certificate-image">
+                        ${imageElement}
+                    </div>
+
+                    <p class="certificate-description">${certificate.description}</p>
+
+                    <div class="certificate-bottom">
+                        <span class="certificate-date">▦ ${certificate.date}</span>
+                        <div class="certificate-links">
+                            ${linksHtml}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", renderCertificates);
+    </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affan - Projects</title>
+    <style>
+        /* Complete full-bleed layout reset */
+        :root {
+            --paper: #f8f1ed;
+            --ink: #080808;
+            --pink: #fac5d6;
+            --pink-light: #fbd5df;
+            --purple: #d8a7f1;
+            --purple-light: #e0baf5;
+            --line: 3px solid var(--ink);
+            --radius: 18px;
+            --gap: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "DM Sans", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--paper); /* Match Home Canvas Base */
+            color: var(--ink);
+            padding: 16px 18px 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%; 
+            margin: 0;
+        }
+
+        /* Nav Bar Architecture matching index.html properties exactly */
+        .navbar {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 10px 10px 0 var(--ink);
+            padding: 12px 28px;
+            border: var(--line);
+            border-radius: var(--radius);
+            background: rgba(255,255,255,.25);
+            margin-bottom: 35px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: clamp(25px, 2.3vw, 36px);
+            font-weight: 900;
+            letter-spacing: -1.8px;
+            padding-right: 32px;
+            border-right: 2px solid var(--ink);
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 34px);
+            flex: 1;
+        }
+
+        .nav-links a {
+            padding: 11px 22px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: background .2s, transform .2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links a:hover { 
+            background: var(--pink); 
+            transform: translateY(-2px); 
+        }
+
+        .nav-links .active { 
+            background: var(--pink); 
+        }
+
+        .sunburst { 
+            font-size: 39px; 
+            line-height: 1; 
+        }
+
+        .connect {
+            padding: 13px 26px;
+            color: white;
+            background: var(--ink);
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 17px;
+            white-space: nowrap;
+            transition: transform .2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .connect:hover { 
+            transform: translateY(-2px); 
+        }
+        .hero-banner {
+            width: 100%;
+            min-height: 280px;
+            background: linear-gradient(115deg, #f9ced9, #fbd9df); 
+            border: var(--line);
+            border-radius: var(--radius);
+            padding: 50px;
+            display: flex;
+            box-shadow: 10px 10px 0 var(--ink);
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .hero-banner::after {
+            content: "✦";
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            font-size: 54px;
+        }
+
+        .hero-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sub-title {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            font-size: clamp(48px, 5.8vw, 88px);
+            font-weight: 900;
+            line-height: .91;
+            letter-spacing: -3px;
+            margin: 15px 0;
+        }
+
+        .tagline {
+            font-family: "Space Mono", monospace;
+            font-size: clamp(13px, 1.35vw, 19px);
+            font-weight: 700;
+        }
+
+        .hero-manual-image-slot {
+            width: 400px;
+            height: 200px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .hero-manual-image-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .projects-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        /* Base Project Card Properties */
+        .project-card {
+            border: var(--line);
+            border-radius: var(--radius);
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 320px;
+            position: relative;
+            background: rgba(255,255,255,.18);
+            transition: transform .2s, box-shadow .2s; /* Seamless physics transition */
+        }
+
+        /* Match Exact Home Page Bento Hover Behavior */
+        .project-card:hover { 
+            transform: translateY(-3px) !important; 
+            box-shadow: 5px 5px 0 var(--ink) !important; 
+        }
+
+        .card-left {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-header-row {
+            padding-bottom: 5px;
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .proj-id {
+            font-size: 20px;
+            text-align: center;
+           
+            font-weight: 900;
+            
+            
+            
+            width: 25px;
+            height: 25px;
+            
+        }
+
+        .proj-title {
+            font-size: 32px;
+            font-weight: 900;
+            padding-left: 8px;
+            border-left: 2px solid black;
+            
+        }
+
+        .proj-desc {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--ink);
+            margin-bottom: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            font-size: 18px;
+            width: auto;
+            height: auto;
+            font-weight: bold;
+            border: 2px solid var(--ink);
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .card-footer {
+            display: flex;
+            padding-top: 8px;
+            border-top: 2px solid black;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card-right {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-placeholder-box {
+            width: 100%;
+            height: 275px;
+            background-color: #ffffff;
+            border: 2px solid var(--ink);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .image-placeholder-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .action-arrow-btn {
+            width: 44px;
+            height: 44px;
+            margin-top: 10px;
+            background: #ffffff;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+         .hero-decoration {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+           
+            height: 70px;
+        }
+        @media (max-width: 1024px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero-banner { flex-direction: column; text-align: center; gap: 30px; }
+            .hero-manual-image-slot { width: 100%; }
+            .navbar { flex-wrap: wrap; min-height: auto; }
+            .logo { border-right: 0; padding-right: 8px; }
+        }
+    
+/* Mobile layout overrides */
+@media (max-width: 700px) {
+  html, body { width: 100%; overflow-x: hidden; }
+  body { padding: 10px 12px 22px; }
+  .container { width: 100%; max-width: 100%; }
+  .navbar {
+    min-height: 0; flex-wrap: wrap; gap: 10px;
+    padding: 12px 14px; margin-bottom: 24px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .logo { font-size: 27px; border: 0; padding: 0; margin-right: auto; }
+  .sunburst { font-size: 27px; }
+  .connect { padding: 10px 13px; font-size: 12px; }
+  .nav-links {
+    order: 4; flex: 0 0 100%; width: 100%;
+    display: flex; flex-wrap: nowrap; gap: 5px;
+    overflow-x: auto; padding: 8px 0 2px; scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { flex: 0 0 auto; font-size: 13px; padding: 8px 11px; }
+  .hero-banner {
+    min-height: 0; padding: 28px 18px 24px;
+    flex-direction: column; text-align: center; gap: 18px;
+    margin-bottom: 26px; box-shadow: 4px 4px 0 var(--ink);
+  }
+  .hero-content { width: 100%; }
+  .sub-title { font-size: 14px; }
+  .main-title { font-size: clamp(36px, 10vw, 54px); letter-spacing: -2px; line-height: .98; margin: 12px 0; overflow-wrap: anywhere; }
+  .tagline { font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+  .hero-manual-image-slot { width: 100%; max-width: 250px; height: 135px; margin: 0 auto; }
+  .hero-decoration { display: none; }
+  .projects-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .project-card {
+    min-height: 0; padding: 16px; gap: 14px;
+    flex-direction: column; border-radius: 16px;
+  }
+  .card-left, .card-right { width: 100%; }
+  /* Flatten the two desktop columns so the project image sits directly
+     after its title on phones, like the certificate cards. */
+  .card-left, .card-right { display: contents; }
+  .card-header-row { order: 1; gap: 10px; margin-bottom: 0; }
+  .image-placeholder-box { order: 2; }
+  .proj-desc { order: 3; }
+  .tech-tags { order: 4; }
+  .card-footer { order: 5; }
+  .action-arrow-btn { order: 6; }
+  .card-left { gap: 14px; }
+  .proj-id { font-size: 15px; width: 22px; height: 22px; flex: 0 0 22px; }
+  .proj-title { font-size: clamp(20px, 6vw, 27px); line-height: 1.15; overflow-wrap: anywhere; }
+  .proj-desc { font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+  .tech-tags { gap: 7px; margin-bottom: 15px; }
+  .tag { font-size: 12px; padding: 6px 9px; border-width: 1.5px; }
+  .card-footer { flex-wrap: wrap; gap: 8px; font-size: 12px; padding-top: 10px; }
+  .card-right { align-items: stretch; gap: 10px; }
+  .image-placeholder-box { width: 100%; height: 190px; }
+  .image-placeholder-box img { object-fit: contain; }
+  .action-arrow-btn { align-self: flex-end; width: 38px; height: 38px; margin-top: 0; }
+}
+@media (max-width: 380px) {
+  body { padding: 8px; }
+  .navbar { padding: 10px; }
+  .connect { font-size: 11px; padding: 9px 10px; }
+  .project-card { padding: 12px; }
+  .card-footer { font-size: 11px; }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="navbar">
+            <div class="logo">AFFAN.</div>
+            <nav class="nav-links">
+                <a href="/index.mobile.html">Home</a>
+                <a href="/pages/profile.html">About</a>
+                <a href="/pages/projection.mobile.html" class="active">Projects</a>
+                <!-- <a href="#">Achievements</a> -->
+                <a href="/pages/certificates.mobile.html">Certificate</a>
+            </nav>
+            <span class="sunburst">✳</span>
+            <button class="connect">Let's Connect →</button>
+        </header>
+        <main>
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <span class="sub-title">MY PROJECTS</span>
+                    <h1 class="main-title">PROJECTS.</h1>
+                    <p class="tagline">Ideas I build. Problems I solve. Progress I share.</p>
+                </div>
+                <div class="hero-manual-image-slot">
+                    <img src="/images/hero-project.svg" alt="" onerror="this.style.display='none'">
+                </div>
+                 <div class="decoration-slot hero-decoration" id="hero-decoration-slot">
+                    <img
+        class="hero-decoration"
+        src="/images/hero-decoration.svg"
+        
+        aria-hidden="true"
+    >
+                </div>
+            </section>
+
+            <section class="projects-grid" id="projects-container"></section>
+        </main>
+    </div>
+
+    <script>
+        // Synchronized home component base styles 
+        const colorPalette = ["#fac5d6", "#d8a7f1", "#ebd2ea", "#fcf1e8"];
+
+        const projectsData = [
+            {
+               id: "01",
+                title: "StudyFlow",
+                description: "Full-stack app that schedules and auto-sends study materials to WhatsApp groups.",
+                tags: ["Node.js", "Express", "MySQL", "Green API"],
+                statusValue: "Completed",
+                viewCodeUrl: "https://github.com/mohd-Affan16/StudyFlow",
+                liveDemoUrl: "#",
+                imageSrc: "../images/StudyFlow.jpeg"
+            },
+            {
+               id: "02",
+                title: "IoT UV-C Sterilization System",
+                description: "Smart UV-C disinfection chamber with web control, IR safety lock and Telegram alerts.",
+                tags: ["ESP8266", "IoT", "HTML", "Telegram"],
+                statusValue: "Completed",
+                viewCodeUrl: "#",
+                liveDemoUrl: "#",
+                imageSrc: "../images/UV.jpeg"
+            },
+            {
+               id: "03",
+                title: "AuthFlow",
+                description: "Full-stack Google OAuth authentication system with secure session handling.",
+                tags: ["Node.js", "Express", "Passport.js", "EJS"],
+                statusValue: "Completed",
+                viewCodeUrl: "https://github.com/mohd-Affan16/AuthFlow",
+                liveDemoUrl: "https://authflow-v2jy.onrender.com",
+                imageSrc: "../images/AuthFlow.jpeg"
+            },
+            {
+              id: "04",
+                title: "GlimmerGrid",
+                description: "Interactive product grid with real-time search built using pure HTML, CSS and JS.",
+                tags: ["HTML", "CSS", "JavaScript"],
+                statusValue: "Completed",
+                viewCodeUrl: "https://github.com/mohd-Affan16/GlimmerGrid",
+                liveDemoUrl: "https://mohd-affan16.github.io/GlimmerGrid/",
+                imageSrc: "../images/GG.jpeg"
+            }
+        ];
+
+        function renderProjects() {
+            const container = document.getElementById("projects-container");
+            container.innerHTML = ""; 
+
+            projectsData.forEach((project, i) => {
+                const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
+                const imageElement = project.imageSrc && !project.imageSrc.includes("YOUR_") 
+                    ? `<img src="${project.imageSrc}" alt="${project.title}">` 
+                    : "";
+
+                const assignedBgColor = colorPalette[i % colorPalette.length];
+
+                const cardHtml = `
+                    <div class="project-card" style="background-color: ${assignedBgColor};">
+                        <div class="card-left">
+                            <div class="card-header-row">
+                                <span class="proj-id">${project.id}</span>
+                                <h3 class="proj-title">${project.title}</h3>
+                            </div>
+                            <p class="proj-desc">${project.description}</p>
+                            <div class="tech-tags">${tagsHtml}</div>
+                            <div class="card-footer">
+                                <span> ${project.statusValue}</span>
+                                <span>|</span>
+                                <a href="${project.viewCodeUrl}" class="footer-link"> View Code</a>
+                                <span>|</span>
+                                <a href="${project.liveDemoUrl}" class="footer-link"> Live Demo</a>
+                            </div>
+                        </div>
+                        <div class="card-right">
+                            <div class="image-placeholder-box">${imageElement}</div>
+                            <div class="action-arrow-btn">➔</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", renderProjects);
+    </script>
+</body>
+</html>
